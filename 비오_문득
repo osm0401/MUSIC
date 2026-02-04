@@ -8,8 +8,9 @@ let a = 1/4       // 1마디
 let e = 1/8     // 8분음표 = 0.5박
 let s = 1/16    // 16분음표 = 0.25박
 $: arrange(
-  [e, "a4"],
-  [e, "a4"],
+  [s, silence],
+  [s, "a4"],
+  [s, "a4"],
   [s, "a4"],
   [s, silence],   // 16분 쉼
   [e, "c5"],
@@ -17,10 +18,11 @@ $: arrange(
   [a ,"c5"],
   [a, silence],
   [e, silence],
+  [s, "a4"],
+  [s, "a4"],
   [e, "a4"],
   [e, "a4"],
-  [e, "a4"],
-  [e, "a4"],
+  
   [e, "b4"],
   [a, "b4"],
   [a, silence],
@@ -46,6 +48,7 @@ $: arrange(
   [s, "a4"],
   [e, "a4"],
   [e, "a4"],
+  
   [e, "c5"],
   [a, "c5"],
   [e, silence],
@@ -65,7 +68,7 @@ $: arrange(
   [e, "b4"],
   [e, "a4"],
   [e, "a4"],
-  [s, silence],
+  [e, silence],
   [e, "a4"],
   [e, "a4"],
   [s, "a4"],
@@ -78,6 +81,7 @@ $: arrange(
   [e, "c5"],
   [e, "a4"],
   [e, "a4"],
+
   
   [s, "c5"],
   [s, silence],
@@ -113,19 +117,13 @@ $: arrange(
 .sound("piano")
 .scale("A:major")
 .release(0.2)
-$: arrange(
-  [a, silence],
-  [e*3, silence],
-  [s*2, silence],
-  [s, "c5"],
-  [s, "c5"],
-  [e, "b4"],
-  [e, "a4"],
-  [e, "f4"],
-  [e, "a4"],
-  
-  [999999, silence]
-)
-.note()
-.sound("gm_pad_halo")     // 천천히 올라오게
-.release(0.2)
+
+$ : sound("~ cp")
+.mask(time.gte(8))
+.mask(time.lt(17))
+.gain(0.1)
+.fast(2)
+
+$ : sound("bd - hh bd - - hh - bd - hh bd - bd hh [bd bd]")
+.slow(2)
+.mask(time.gte(9))
